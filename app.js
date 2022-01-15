@@ -36,7 +36,7 @@ app.get('/add', function(req, res, next) {
 
     // calculate addition & send it back
     var result = parseInt(number1, 10) + parseInt(number2, 10);
-    gauge.inc(1);
+    gaugeA.inc(1);
     res.send(result.toString());
 });
 
@@ -47,7 +47,7 @@ app.get('/mult', function(req, res, next) {
 
     // calculate addition & send it back
     var result = parseInt(number1, 10) * parseInt(number2, 10);
-    gauge.inc(1);
+    gaugeM.inc(1);
     res.send(result.toString());
 });
 
@@ -55,8 +55,16 @@ app.get('/mult', function(req, res, next) {
 // Metrics
 
 
-const gauge = new client.Gauge({
+const gaugeA = new client.Gauge({
     name: 'Add',
+    help: 'Number of add function calls',
+    // add `as const` here to enforce label names
+    labelNames: ['count'],
+    registers: [register],
+  });
+
+  const gaugeM = new client.Gauge({
+    name: 'Multiply',
     help: 'Number of add function calls',
     // add `as const` here to enforce label names
     labelNames: ['count'],
