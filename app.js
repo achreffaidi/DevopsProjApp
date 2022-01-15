@@ -36,6 +36,7 @@ app.get('/add', function(req, res, next) {
 
     // calculate addition & send it back
     var result = parseInt(number1, 10) + parseInt(number2, 10);
+    gauge.inc(1);
     res.send(result.toString());
 });
 
@@ -46,6 +47,7 @@ app.get('/mult', function(req, res, next) {
 
     // calculate addition & send it back
     var result = parseInt(number1, 10) * parseInt(number2, 10);
+    gauge.inc(1);
     res.send(result.toString());
 });
 
@@ -63,27 +65,12 @@ const gauge = new client.Gauge({
 
 
 app.get('/metrics', async function(req, res, next) {
-    var docClient = new AWS.DynamoDB.DocumentClient();
 
-    var toRead = {
-        TableName: "CalculatorDB",
-        Key: {
-            "operation": "Multiply"
-        }
-    };
+    
+    res.setHeader('Content-Type', register.contentType)
+    let metrics = await register.metrics();
+    res.end(metrics);
 
-    docClient.get(toRead, async function(err, data) {
-        if (err) {
-            console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            console.log("GetItem succeeded:", data.Item.calls);
-            gauge.set(data.Item.calls);
-            res.setHeader('Content-Type', register.contentType)
-            let metrics = await register.metrics();
-            res.end(metrics);
-
-        }
-    });
 
 });
 
