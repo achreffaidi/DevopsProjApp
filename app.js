@@ -16,7 +16,7 @@ AWS.config.update({
 
 
 const app = express()
-const port = 3000
+const port = 8080
 /* GET home page. */
 app.get('/', function(req, res, next) {
     res.send("Home !!!")
