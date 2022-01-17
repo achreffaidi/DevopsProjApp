@@ -1,6 +1,7 @@
 var express = require('express');
 var AWS = require("aws-sdk");
 const client = require('prom-client');
+const utils = require('./utils')
 
 // Create a Registry which registers the metrics
 const register = new client.Registry();
@@ -35,7 +36,7 @@ app.get('/add', function(req, res, next) {
     var number2 = parseInt(req.query.n2, 10);
 
     // calculate addition & send it back
-    var result = addition(number1, number2)
+    var result = utils.addition(number1, number2)
     gaugeA.inc(1);
     res.send(result.toString());
 });
@@ -46,7 +47,7 @@ app.get('/mult', function(req, res, next) {
     var number2 = req.query.n2;
 
     // calculate multiplication & send it back
-    var result = multiply(number1, number2);
+    var result = utils.multiply(number1, number2);
     gaugeM.inc(1);
     res.send(result.toString());
 });
@@ -86,13 +87,4 @@ app.listen(port, function() {
     console.log("Example app listening at http://localhost:" + port);
 });
 
-var addition = function addition (a, b)
-{
-    return  parseInt(a, 10) + parseInt(b, 10);
-};
-
-var multiply = function multiply (a, b)
-{
-    return  parseInt(a, 10) * parseInt(b, 10);
-};
-module.exports = {addition : addition, multiply: multiply};
+module.exports = app
