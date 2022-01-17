@@ -1,9 +1,9 @@
 var express = require('express');
 var AWS = require("aws-sdk");
-const client = require('prom-client')
+const client = require('prom-client');
 
 // Create a Registry which registers the metrics
-const register = new client.Registry()
+const register = new client.Registry();
 // Add a default label which is added to all metrics
 register.setDefaultLabels({
   app: 'nodejs-app'
@@ -15,8 +15,8 @@ AWS.config.update({
 });
 
 
-const app = express()
-const port = process.env.PORT || 5000
+const app = express();
+const port = process.env.PORT || 5000;
 /* GET home page. */
 app.get('/', function(req, res, next) {
     res.send("Home !!!")
@@ -35,7 +35,7 @@ app.get('/add', function(req, res, next) {
     var number2 = parseInt(req.query.n2, 10);
 
     // calculate addition & send it back
-    var result = parseInt(number1, 10) + parseInt(number2, 10);
+    var result = addition(number1, number2)
     gaugeA.inc(1);
     res.send(result.toString());
 });
@@ -45,8 +45,8 @@ app.get('/mult', function(req, res, next) {
     var number1 = req.query.n1;
     var number2 = req.query.n2;
 
-    // calculate addition & send it back
-    var result = parseInt(number1, 10) * parseInt(number2, 10);
+    // calculate multiplication & send it back
+    var result = multiply(number1, number2);
     gaugeM.inc(1);
     res.send(result.toString());
 });
@@ -75,16 +75,24 @@ const gaugeA = new client.Gauge({
 app.get('/metrics', async function(req, res, next) {
 
     
-    res.setHeader('Content-Type', register.contentType)
+    res.setHeader('Content-Type', register.contentType);
     let metrics = await register.metrics();
     res.end(metrics);
 
 
 });
 
-
 app.listen(port, function() {
     console.log("Example app listening at http://localhost:" + port);
 });
 
-module.exports = app;
+var addition = function addition (a, b)
+{
+    return  parseInt(a, 10) + parseInt(b, 10);
+};
+
+var multiply = function multiply (a, b)
+{
+    return  parseInt(a, 10) * parseInt(b, 10);
+};
+module.exports = {addition : addition, multiply: multiply};
