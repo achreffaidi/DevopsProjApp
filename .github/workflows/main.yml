@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: imranismail/setup-kustomize@v1
       - run: |
-          git checkout origin deploy
+          git checkout origin/deploy
           kustomize edit set image app:${GITHUB_SHA}
           git add .
           git commit -m "Set `app` image tag to `${GITHUB_SHA}`"
