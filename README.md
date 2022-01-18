@@ -7,7 +7,7 @@
 
  For local host 
 ```sh
-http://localhost:8080/api
+http://localhost:5000/
 ```
  For Heroku host 
 ```sh
@@ -25,7 +25,7 @@ GET /
 
  Response example
 
-```json
+```string
 Home !!!
 ```
 
@@ -64,7 +64,7 @@ GET /metrics
 
  Response example
 
-```json
+```string
 # HELP Add Number of add function calls
 # TYPE Add gauge
 Add{app="nodejs-app"} 2
