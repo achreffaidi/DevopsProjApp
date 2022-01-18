@@ -1,9 +1,6 @@
 # DevopsProjApp
-# Event Manager Backend
 
- You can edit this file from this [link](https://www.makeareadme.com/).
-
-# End point 
+# Endpoint 
 
  For local host 
 ```sh
@@ -14,8 +11,7 @@ http://localhost:5000/
 https://mydevops-project-app.herokuapp.com/
 ```
 
-# Endpoints
-
+# APIs
 ## Home
 
 end point 
@@ -29,7 +25,7 @@ GET /
 Home !!!
 ```
 
-## Addition api
+## Addition
 
 end point 
 ```http
@@ -42,7 +38,7 @@ GET /add?n1=15&n2=5
 15
 ```
 
-## Multiplication api
+## Multiplication
 
 end point 
 ```http
