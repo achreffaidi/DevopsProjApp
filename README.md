@@ -1,6 +1,6 @@
 # DevopsProjApp
 
-# Endpoint 
+# Endpoint
 
  For local host 
 ```sh
@@ -70,13 +70,49 @@ Add{app="nodejs-app"} 2
 Multiply{app="nodejs-app"} 3
 ```
 # Prometheus
+
+Promotheurs configuration file can be found under `/monitoring/prometheus.yaml`
+
+Build and run Prometheus by running this command: 
+
+```bash
+docker build -t prom . 
+docker run -p 9090:9090 prom 
+```
+
+
+
 ## Prometheus Screenshots
 
+Query: 
+
+![1](img/1.png)
+
+Graph: 
+
+![1](img/2.png)
+
+Alert:
+
+![1](img/3.png)
 
 # Grafana
-## Grafana Screenshots
 
 
+
+We run Grafana using the official image: 
+
+```bash
+docker run -d -p 3000:3000 grafana/grafana-enterprise
+```
+
+We setup grafana Data Source to pull metrics from Prometheus. 
+
+![1](img/5.png)
+
+Then we create the dashboard. 
+
+![1](img/4.png)
 
 
 
