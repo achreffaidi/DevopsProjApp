@@ -10,6 +10,7 @@ jobs:
   create-deployment-branch:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: imranismail/setup-kustomize@v1
       - run: |
           git checkout origin deploy
