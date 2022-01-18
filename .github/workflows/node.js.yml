@@ -51,3 +51,13 @@ jobs:
         with:
           push: true
           tags: achreffaidi/app:latest
+  create-deployment-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: imranismail/setup-kustomize@v1
+      - run: |
+          kustomize edit set image app:${GITHUB_SHA}
+          git checkout deploy
+          git add .
+          git commit -m "Set `app` image tag to `${GITHUB_SHA}`"
+          git push
