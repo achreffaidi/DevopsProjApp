@@ -31,6 +31,7 @@ jobs:
     - run: npm test
   docker:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       -
         name: Set up QEMU
@@ -53,6 +54,7 @@ jobs:
           tags: achreffaidi/app:latest
   create-deployment-branch:
     runs-on: ubuntu-latest
+    needs: docker
     steps:
       - uses: imranismail/setup-kustomize@v1
       - run: |
